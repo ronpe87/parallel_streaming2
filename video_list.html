@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube動画一覧</title>
+            <style>
+            /* 共通のベーススタイル */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+/* 共通のボタンスタイル */
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+.btn-danger {
+    background-color: #ff0000;
+}
+
+.btn-info {
+    background-color: #1a73e8;
+}
+
+.btn-info:hover {
+    background-color: #1557b0;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #ffffff;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    color: #ffffff;
+}
+
+.btn-lg {
+    font-size: 18px;
+}
+
+
+/* 共通のカードスタイル */
+
+.card {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+
+/* 共通のフォームスタイル */
+
+.form-input {
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+.form-input::placeholder {
+    color: #666;
+}
+
+
+/* 共通のテキストスタイル */
+
+.text-center {
+    text-align: center;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.text-muted {
+    color: #cccccc;
+}
+/* トップページ固有のスタイル */
+
+.admin-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.button-container {
+    margin: 20px 0;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.video-thumbnail {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 アスペクト比 */
+    background-color: #000;
+}
+
+.video-thumbnail iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-info {
+    padding: 12px;
+}
+
+.video-title {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.video-number {
+    margin: 0;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+        </style>
+    <script type="text/javascript" nonce="cb5210d2c10749ff82148dbc335" src="//local.adguard.org?ts=1739107900491&amp;type=content-script&amp;dmn=localhost&amp;url=http%3A%2F%2Flocalhost%2Fadmin%2Fdownload-html&amp;app=msedge.exe&amp;css=2&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script>
+<script type="text/javascript" nonce="cb5210d2c10749ff82148dbc335" src="//local.adguard.org?ts=1739107900491&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+<body>
+    <div class="container">
+                <div class="button-container text-center">
+            <button class="btn btn-danger btn-lg" id="playAllButton">一括再生</button>
+            <button class="btn btn-info btn-lg" id="stopAllButton">一括停止</button>
+        </div>
+        <div class="video-grid">
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-0">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 1</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-1">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 2</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-2">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 3</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-3">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 4</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-4">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 5</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-5">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 6</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-6">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 7</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-7">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 8</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-8">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 9</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-9">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 10</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-10">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 11</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-11">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 12</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-12">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 13</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-13">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 14</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-14">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 15</p>
+                    </div>
+                </div>
+                            <div class="video-item card">
+                    <div class="video-thumbnail">
+                        <iframe
+                            src="https://www.youtube.com/embed/GAhRMpxbHmY?vq=hd2160&amp;hd=1&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            id="video-frame-15">
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <p class="video-number text-muted">動画 16</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+
+            <script src="https://www.youtube.com/iframe_api"></script>
+        <script>
+            let players = [];
+let isAPIReady = false;
+
+// YouTubeプレーヤーのAPIを読み込む
+function loadYouTubeAPI() {
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+// YouTubeプレーヤーの準備完了時
+window.onYouTubeIframeAPIReady = function() {
+    console.log('YouTube API Ready');
+    isAPIReady = true;
+    initializePlayers();
+};
+
+function initializePlayers() {
+    const iframes = document.querySelectorAll('iframe');
+
+    iframes.forEach((iframe, index) => {
+        const videoId = iframe.src.match(/embed\/([^?]+)/)[1];
+        console.log('Initializing player for video:', videoId);
+
+        if (videoId) {
+            // 既存のiframeを削除
+            const parent = iframe.parentElement;
+            iframe.remove();
+
+            // 新しいdiv要素を作成
+            const playerDiv = document.createElement('div');
+            playerDiv.id = `video-frame-${index}`;
+            parent.appendChild(playerDiv);
+
+            // YouTubeプレーヤーを初期化
+            players[index] = new YT.Player(playerDiv.id, {
+                videoId: videoId,
+                height: '100%',
+                width: '100%',
+                playerVars: {
+                    'vq': 'hd2160',
+                    'hd': 1,
+                    'modestbranding': 1,
+                    'rel': 0,
+                    'playsinline': 1
+                },
+                events: {
+                    'onReady': function(event) {
+                        console.log('Player ready:', index);
+                        event.target.setPlaybackQuality('hd2160');
+                    }
+                }
+            });
+        }
+    });
+
+    // すべてのプレーヤーが初期化された後にボタンを有効化
+    enableButtons();
+}
+
+function enableButtons() {
+    const playAllButton = document.getElementById('playAllButton');
+    const stopAllButton = document.getElementById('stopAllButton');
+
+    if (playAllButton) playAllButton.disabled = false;
+    if (stopAllButton) stopAllButton.disabled = false;
+}
+
+// ページ読み込み完了時の処理
+document.addEventListener('DOMContentLoaded', function() {
+    const playAllButton = document.getElementById('playAllButton');
+    const stopAllButton = document.getElementById('stopAllButton');
+
+    // ボタンを一時的に無効化
+    if (playAllButton) playAllButton.disabled = true;
+    if (stopAllButton) stopAllButton.disabled = true;
+
+    // 一括再生ボタンの機能
+    playAllButton.addEventListener('click', function() {
+        console.log('Play button clicked');
+        if (!isAPIReady) {
+            alert('YouTube APIの準備中です。しばらくお待ちください。');
+            return;
+        }
+
+        players.forEach((player, index) => {
+            if (player && typeof player.playVideo === 'function') {
+                console.log('Playing video:', index);
+                try {
+                    player.mute();
+                    player.setPlaybackQuality('hd2160');
+                    player.playVideo();
+                } catch (error) {
+                    console.error('動画の再生に失敗しました:', error);
+                }
+            }
+        });
+    });
+
+    // 一括停止ボタンの機能
+    stopAllButton.addEventListener('click', function() {
+        console.log('Stop button clicked');
+        if (!isAPIReady) {
+            alert('YouTube APIの準備中です。しばらくお待ちください。');
+            return;
+        }
+
+        players.forEach((player, index) => {
+            if (player && typeof player.stopVideo === 'function') {
+                console.log('Stopping video:', index);
+                try {
+                    player.stopVideo();
+                } catch (error) {
+                    console.error('動画の停止に失敗しました:', error);
+                }
+            }
+        });
+    });
+
+    // YouTube APIの読み込みを開始
+    loadYouTubeAPI();
+});
+        </script>
+    </body>
+</html>
